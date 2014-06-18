@@ -6,11 +6,12 @@ require_relative 'guess'
 require_relative 'guess_printer'
 
 class Game
-  attr_reader :guess_history, :sequence, :turns, :game_over
+  attr_reader :guess_history, :sequence, :turns, :game_over, :guess_builder
   def initialize
     @guess_history = []
     @game_over = false
     @sequence ||= SequenceGenerator.new.generate.sequence
+    @guess_builder = GuessBuilder.new
   end
 
   def turns
@@ -21,11 +22,14 @@ class Game
     time = -(@guess_history[0].time - @guess_history[-1].time)
   end
   
-
   def new_guess(input)
-    guess = GuessBuilder.new(input).new_guess
-    guess.results = SequenceMatcher.new(guess, @sequence).get_result
-    add_guess(guess)
+    guess = guess_builder.build(new_guess)
+    if guess
+      guess.results = SequenceMatcher.new(guess, @sequence).get_result
+      add_guess(guess)
+    else
+      false
+    end
   end
 
   def guess_printer

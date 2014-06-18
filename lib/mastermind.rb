@@ -48,9 +48,12 @@ class Repl
       input = gets.strip
       
       unless wants_to_quit?(input)
-        @game.new_guess(input)
-        puts "Guess number #{@game.turns}"
-        @game.guess_printer
+        if @game.new_guess(input)
+          puts "Guess number #{@game.turns}"
+          @game.guess_printer
+        else
+          puts "Sorry, #{input} is not a valid guess."
+        end
       end
     end
     
