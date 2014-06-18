@@ -35,12 +35,16 @@ class Game
 
   def guess_printer
     GuessPrinter.new(@guess_history.last)
+    # if !game_over?
+      # GuessPrinter.new(@guess_history.last)
+    # end
   end
 
   def add_guess(guess)
     @guess_history << guess
     if guess.results.fetch :full_match
       game_over
+      @game_over = true
     end
   end
 

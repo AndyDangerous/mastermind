@@ -2,8 +2,6 @@ require_relative 'game'
 require_relative 'guess'
 
 class GuessPrinter
-  attr_reader :guess_result
-  
   def initialize(guess)
     @guess = guess
 
