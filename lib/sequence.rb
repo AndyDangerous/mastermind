@@ -1,0 +1,1 @@
+Sequence = Struct.new(:sequence)
