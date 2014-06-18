@@ -4,25 +4,22 @@ require 'minitest/pride'
 require './lib/guess_builder'
 
 class GuessBuilderTest < Minitest::Test
-
-  def test_it_validates_guess_length_four
-    guess = GuessBuilder.new("rrrr")
-    assert_equal guess.validate_length?, true
-
-    guess = GuessBuilder.new("rrr")
-    refute_equal guess.validate_length?, true
-
-    guess = GuessBuilder.new("rrrrr")
-    refute_equal guess.validate_length?, true
+  attr_reader :gb
+  
+  def setup
+    @gb = GuessBuilder.new
   end
 
-  def test_it_validates_guess_chars
-
-    guess = GuessBuilder.new("rgby")
-    assert guess.validate_chars?
-
-    guess = GuessBuilder.new("rgbz")
-    refute guess.validate_chars?
+  def test_it_builds_a_valid_guess
+    assert gb.build('rrrr')
   end
-
+  
+  def test_it_downcases_an_uppercase_input
+    expected = %w(r r r r)
+    assert_equal expected, gb.build('RRRR').code
+  end
+  
+  def test_it_does_not_build_an_invalid_input
+    refute gb.build('XXXXX')
+  end
 end
