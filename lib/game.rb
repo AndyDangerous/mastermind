@@ -23,10 +23,11 @@ class Game
   end
   
   def new_guess(input)
-    guess = guess_builder.build(new_guess)
+    guess = @guess_builder.build(input)
     if guess
       guess.results = SequenceMatcher.new(guess, @sequence).get_result
       add_guess(guess)
+      guess
     else
       false
     end
@@ -44,9 +45,11 @@ class Game
   end
 
   def game_over
+    system('clear')
     puts "Excellent work! You guessed my secret code in #{turns} turns."
-    puts "That shit took you #{time} seconds."
+    puts "That shit took you #{time/60} minutes and #{time%60} seconds."
     @game_over = true
+    puts "Play again? (y/n)"
   end
   
   def game_over?

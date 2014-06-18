@@ -6,7 +6,7 @@ class SequenceMatcher
   def initialize(guess, sequence)
     @guess = guess                 # => #<Guess:0x000001020866c0 @guess=["r", "g", "y", "b"], @time=2014-06-18 09:49:43 -0600, @results={}>
     
-    @guess_array = guess.guess     # => ["r", "g", "y", "b"]
+    @guess_array = guess.code     # => ["r", "g", "y", "b"]
     @sequence = sequence           # => ["g", "g", "g", "y"]
     @color_counter                 # => nil
     @guess_result                  # => nil

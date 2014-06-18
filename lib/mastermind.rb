@@ -46,18 +46,22 @@ class Repl
       puts "This sequence consists  of: (r)ed, (g)reen, (b)lue, and (y)ellow."
       puts "Use q to quit at any time to end the game. Guess a sequence of four colors."
       input = gets.strip
-      
       unless wants_to_quit?(input)
         if @game.new_guess(input)
-          puts "Guess number #{@game.turns}"
+           puts "Guess number #{@game.turns}"
           @game.guess_printer
         else
           puts "Sorry, #{input} is not a valid guess."
         end
       end
     end
-    
-    puts "The game is over."
+    # input = gets.strip
+    # do until (input == 'y') || (input == 'n')
+    #   if input == 'y'
+    #     play
+    #   elsif input == 'n'
+    #   end
+    end
   end
   
 end
