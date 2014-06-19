@@ -38,7 +38,7 @@ class Game
   end
 
   def guess_printer
-    GuessPrinter.new(@guess_history.last)
+    GuessPrinter.new(@guess_history)
   end
 
   def add_guess(guess)
