@@ -23,4 +23,16 @@ class GuessBuilderTest < Minitest::Test
   def test_it_does_not_build_an_invalid_input
     refute gb.build('XXXXX', 4)
   end
+  
+  def test_it_builds_with_an_input_with_medium_difficulty
+    assert gb.build('rgbycm', 6)
+  end
+  
+  def test_it_builds_with_an_input_with_hard_difficulty
+    assert gb.build('rgbycmwk', 8)
+  end
+  
+  def test_it_does_not_build_an_easy_guess_with_letters_from_hard
+    refute gb.build('cmwk', 4)
+  end
 end
