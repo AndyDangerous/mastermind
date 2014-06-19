@@ -8,7 +8,12 @@ class Repl
   end
 
   def initialize
-    puts "Initializing"
+    system('clear')
+    # puts "Initializing"
+    # 10.times{
+    # print ". "
+    # sleep 0.25 }
+    # puts "Ready!"
   end
 
   def wants_to_quit?(input)
@@ -16,7 +21,7 @@ class Repl
   end
 
   def start
-    puts "Welcome to MASTERMIND \n Is your mind masterful?"
+    puts "Welcome to MASTERMIND \nIs your mind masterful?"
     input = ''
     unless wants_to_quit?(input)
       puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"

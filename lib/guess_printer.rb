@@ -6,7 +6,7 @@ class GuessPrinter
     @guess = guess
 
     if @guess.results[:full_match]
-      puts "game over"
+
     else
       system('clear')
       puts "Last guess: #{@guess.code} "

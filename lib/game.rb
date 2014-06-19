@@ -39,9 +39,6 @@ class Game
 
   def guess_printer
     GuessPrinter.new(@guess_history.last)
-    # if !game_over?
-      # GuessPrinter.new(@guess_history.last)
-    # end
   end
 
   def add_guess(guess)
