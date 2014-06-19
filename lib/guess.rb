@@ -1,19 +1,24 @@
+require_relative 'game'
+require_relative 'sequence'
+require 'pry'
+
 class Guess
   attr_reader   :code, :time
   attr_accessor :results
 
-  def initialize(input)
+  def initialize(input, sequence_length)
     @code = input
     @time = Time.new
     @results = {}
+    @sequence_length = sequence_length
   end
-  
+
   def expected_length
-    4
+    @sequence_length
   end
   
   def expected_characters
-    %w(r g b y)
+    %w(r g b y c m k w).take(@sequence_length)
   end
 
   def valid?
@@ -21,7 +26,7 @@ class Guess
   end
 
   def valid_length?
-    code.length == expected_length
+    code.length == @sequence_length
   end
 
   def valid_characters?

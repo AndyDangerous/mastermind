@@ -9,15 +9,15 @@ class SequenceGeneratorTest < Minitest::Test
   end
 
   def test_it_generates_a_new_sequence
-    sequence = SequenceGenerator.new
+    sequence = SequenceGenerator.new(4, %w(r g b y))
     sequence.generate
 
     assert sequence.generate
   end
 
   def test_it_makes_random_sequences
-    s1 = SequenceGenerator.new
-    s2 = SequenceGenerator.new
+    s1 = SequenceGenerator.new(4, %w(r g b y))
+    s2 = SequenceGenerator.new(4, %w(r g b y))
     s1_ary = []
     s2_ary = []
     s1_ary = s1.generate

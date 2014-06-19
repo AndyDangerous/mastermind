@@ -5,7 +5,7 @@ require './lib/game'
 
 class GameTest < Minitest::Test
   def test_it_begins_with_blank_guesses_array
-    game = Game.new
+    game = Game.new(4, %w(r g b y))
     assert_equal [], game.guess_history
   end
 
@@ -13,25 +13,25 @@ class GameTest < Minitest::Test
   end
 
   def test_it_gets_a_sequence_array
-    game = Game.new
+    game = Game.new(4, %w(r g b y))
     assert game.sequence.class == Array
   end
 
   def test_it_gets_a_new_guess_with_validation
-    game = Game.new
+    game = Game.new(4, %w(r g b y))
     game.new_guess("rgby")
-    assert_equal game.guess_history.length, 1
+    assert_equal 1, game.guess_history.length
   end
-  
+
   def test_it_collects_guesses
-    game = Game.new
+    game = Game.new(4, %w(r g b y))
     game.new_guess("rgby")
     game.new_guess("rrrr")
     game.new_guess("rrrb")
 
-    assert_equal game.guess_history.length, 3
+    assert_equal 3, game.guess_history.length
   end
-  
+
   # def test_it_knows_game_length
   #   skip
   #   game = Game.new
@@ -46,8 +46,8 @@ class GameTest < Minitest::Test
   # end
   
   def test_it_knows_when_game_over
-    game = Game.new
-    guess = Guess.new(%w(g r y b))
+    game = Game.new(4, %w(r g b y))
+    guess = Guess.new(%w(g r y b), 4)
     guess.results[:full_match] = true
     game.add_guess(guess)
     

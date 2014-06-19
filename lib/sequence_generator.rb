@@ -1,10 +1,11 @@
-require_relative 'sequence'
+require_relative 'sequence_matcher'
 
 class SequenceGenerator
   
-  def initialize(sequence_length=4, pool=%w(r g b y))
+  def initialize(sequence_length, sequence_chars)
     @sequence_length = sequence_length
-    @sequence_chars = pool
+    @sequence_chars = sequence_chars
+    
   end
   
   def generate
@@ -14,14 +15,6 @@ class SequenceGenerator
 end
 
 if __FILE__ == $0
-blah = SequenceGenerator.new
+blah = SequenceGenerator.new(4, %w(r g b y))
 blah.generate
-end
-
-
-if __FILE__ == $0       # => true
-blah = SequenceMatcher.new         # => #<Game:0x000001020772d8 @guesses=[], @sequence=["b", "g", "r", "b"]>
-          # => ["b", "g", "r", "b"]
-blah.new_guess("rgby")
-guess_history
 end

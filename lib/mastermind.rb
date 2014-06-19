@@ -22,7 +22,7 @@ class Repl
       puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
       input = gets.strip
       case input
-      when 'p' then start_new_game
+      when 'p' then choose_level
       when 'i' then instructions
       end
     end
@@ -33,11 +33,26 @@ class Repl
     puts "Mastermind is a game of wits. You must successfully guess the code the secret code. On each guess, you will learn the number of correct colors guessed as well as the number placed in the correct slots."
   end
   
-  def start_new_game
-    puts "Alriiight, time for a new game. How smart do you think you are?"
-    @game = Game.new
+  def choose_level
+    system('clear')
+    puts "What kind of game would you like?"
+    puts "Choose e for easy, m for medium, and h hard."
+    input = gets.strip
+    case input
+    when 'e' then @game = Game.new(4, %w(r g b y))
+    when 'm' then @game = Game.new(6, %w(r g b y c m))
+    when 'h' then @game = Game.new(4, %w(r g b y c m k w))
+    else puts "choose e, m, or h"
+    end
+    puts "Alriiiiight, time for a new game. How smart do you think you are?"
     play
   end
+  
+  # def start_new_game
+  #   puts "Alriiight, time for a new game. How smart do you think you are?"
+  #   @game = Game.new
+  #   play
+  # end
   
   def play
     input = ''
@@ -63,7 +78,7 @@ class Repl
         start_new_game
       elsif input == 'n'
       else
-        puts "invalid, bro. type y or n"
+        puts "Invalid entry, bro. Press either the y or n key"
       end
     end
   end

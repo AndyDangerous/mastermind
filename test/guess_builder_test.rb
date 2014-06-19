@@ -8,18 +8,19 @@ class GuessBuilderTest < Minitest::Test
   
   def setup
     @gb = GuessBuilder.new
+    Game.new(4, %w(r g b y))
   end
 
   def test_it_builds_a_valid_guess
-    assert gb.build('rrrr')
+    assert gb.build('rrrr', 4)
   end
   
   def test_it_downcases_an_uppercase_input
     expected = %w(r r r r)
-    assert_equal expected, gb.build('RRRR').code
+    assert_equal expected, gb.build('RRRR', 4).code
   end
   
   def test_it_does_not_build_an_invalid_input
-    refute gb.build('XXXXX')
+    refute gb.build('XXXXX', 4)
   end
 end
