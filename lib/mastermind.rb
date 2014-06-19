@@ -41,7 +41,7 @@ class Repl
     case input
     when 'e' then @game = Game.new(4, %w(r g b y))
     when 'm' then @game = Game.new(6, %w(r g b y c m))
-    when 'h' then @game = Game.new(4, %w(r g b y c m k w))
+    when 'h' then @game = Game.new(8, %w(r g b y c m k w))
     else puts "choose e, m, or h"
     end
     puts "Alriiiiight, time for a new game. How smart do you think you are?"
@@ -55,11 +55,30 @@ class Repl
   # end
   
   def play
+    # STDOUT.sync = true
     input = ''
+
+    # I wanted this to work, but it kept printing the version I thought I was calling at the beginning of the line and then the array where I called it. next time...
+    # colors = ["(r)ed", "(g)reen", "(b)lue", "(y)ellow", "(c)yan", "(m)agenta", "blac(k)", "(w)hite"]
+    # case @game.sequence.length
+    # when 4 then game_colors = colors.take(4)
+    # when 6 then game_colors = colors.take(6)
+    # when 8 then game_colors = colors.take(8)
+    # end
+    # {game_colors.each {|i| print i}}
     
+    # So this is my janky solution:
+    case @game.sequence.length
+    when 4 then game_colors = "(r)ed, (g)reen, (b)lue, and (y)ellow."
+    when 6 then game_colors = "(r)ed, (g)reen, (b)lue, (y)ellow, (c)yan, and (m)agenta."
+    when 8 then game_colors = "(r)ed, (g)reen, (b)lue, (y)ellow, (c)yan, (m)agenta, blac(k), and (w)hite."
+    end
+    
+
     while !wants_to_quit?(input) && !@game.game_over?
-      puts "This sequence consists  of: (r)ed, (g)reen, (b)lue, and (y)ellow."
-      puts "Use q to quit at any time to end the game. Guess a sequence of four colors."
+      # binding.pry
+      puts "This sequence consists  of: #{game_colors}"
+      puts "Use q to quit at any time to end the game. Guess a sequence of #{@game.sequence.length} colors."
       puts "Guess number #{@game.turns + 1}:"
       input = gets.strip
       unless wants_to_quit?(input)
@@ -70,15 +89,16 @@ class Repl
         end
       end
     end
-    #new game choice (y/n)
-    input = ''
-    until (input == 'y') || (input == 'n')
-      input = gets.strip
-      if input == 'y'
-        start_new_game
-      elsif input == 'n'
-      else
-        puts "Invalid entry, bro. Press either the y or n key"
+    
+    if @game.game_over?
+      until (input == 'y') || (input == 'n')
+        input = gets.strip
+        if input == 'y'
+          start_new_game
+        elsif input == 'n'
+        else
+          puts "Invalid entry, bro. Press either the y or n key"
+        end
       end
     end
   end

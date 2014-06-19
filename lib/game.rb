@@ -10,7 +10,7 @@ class Game
   attr_reader :guess_history, :sequence, :turns, :game_over, :guess_builder
   def initialize(code_length, colors)
     cl = code_length
-    colors = colors
+    @colors = colors
     @guess_history = []
     @game_over = false
     @sequence ||= SequenceGenerator.new(cl, colors).generate.sequence
