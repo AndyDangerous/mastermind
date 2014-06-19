@@ -4,7 +4,7 @@ require_relative 'guess_builder'
 require_relative 'sequence_matcher'
 require_relative 'guess'
 require_relative 'guess_printer'
-require 'pry'
+
 
 class Game
   attr_reader :guess_history, :sequence, :turns, :game_over, :guess_builder
@@ -15,7 +15,6 @@ class Game
     @game_over = false
     @sequence ||= SequenceGenerator.new(cl, colors).generate.sequence
     @guess_builder = GuessBuilder.new
-    # binding.pry
   end
 
   def turns
@@ -56,7 +55,7 @@ class Game
   def game_over
     system('clear')
     puts "Excellent work! You guessed my secret code in #{turns} turns."
-    puts "That shit took you #{time/60} minutes and #{(time - (time/60)) % 60} seconds."
+    puts "That shit took you #{(time/60).to_i} minutes and #{((time - (time/60)) % 60).to_i} seconds."
     @game_over = true
     puts "Play again? (y/n)"
   end

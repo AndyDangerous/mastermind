@@ -1,6 +1,6 @@
 require_relative 'game'
 require_relative 'guess'
-require 'pry'
+require 'colorize'
 
 class Repl
   def self.run
@@ -36,7 +36,7 @@ class Repl
   def choose_level
     system('clear')
     puts "What kind of game would you like?"
-    puts "Choose e for easy, m for medium, and h hard."
+    puts "Choose 'e' for easy, 'm' for medium, and 'h' hard."
     input = gets.strip
     case input
     when 'e' then @game = Game.new(4, %w(r g b y))
@@ -47,17 +47,9 @@ class Repl
     puts "Alriiiiight, time for a new game. How smart do you think you are?"
     play
   end
-  
-  # def start_new_game
-  #   puts "Alriiight, time for a new game. How smart do you think you are?"
-  #   @game = Game.new
-  #   play
-  # end
-  
-  def play
-    # STDOUT.sync = true
-    input = ''
 
+
+  def play
     # I wanted this to work, but it kept printing the version I thought I was calling at the beginning of the line and then the array where I called it. next time...
     # colors = ["(r)ed", "(g)reen", "(b)lue", "(y)ellow", "(c)yan", "(m)agenta", "blac(k)", "(w)hite"]
     # case @game.sequence.length
@@ -66,18 +58,15 @@ class Repl
     # when 8 then game_colors = colors.take(8)
     # end
     # {game_colors.each {|i| print i}}
-    
-    # So this is my janky solution:
+    input = ''
     case @game.sequence.length
-    when 4 then game_colors = "(r)ed, (g)reen, (b)lue, and (y)ellow."
-    when 6 then game_colors = "(r)ed, (g)reen, (b)lue, (y)ellow, (c)yan, and (m)agenta."
-    when 8 then game_colors = "(r)ed, (g)reen, (b)lue, (y)ellow, (c)yan, (m)agenta, blac(k), and (w)hite."
+    when 4 then @game_colors = ("(r)ed, ").red + ("(g)reen, ").green + ("(b)lue, ").blue + "and " + ("(y)ellow.").yellow
+    when 6 then @game_colors = ("(r)ed, ").red + ("(g)reen, ").green + ("(b)lue, ").blue + ("(y)ellow, ").yellow + ("(c)yan, ").cyan + "and " + ("(m)agenta.").magenta
+    when 8 then @game_colors = ("(r)ed, ").red + ("(g)reen, ").green + ("(b)lue, ").blue + ("(y)ellow, ").yellow + ("(c)yan, ").cyan + ("(m)agenta, ").magenta + ("blac(k), ").black + "and " + ("(w)hite.").white
     end
     
-
     while !wants_to_quit?(input) && !@game.game_over?
-      # binding.pry
-      puts "This sequence consists  of: #{game_colors}"
+      puts "This sequence consists  of: #{@game_colors}"
       puts "Use q to quit at any time to end the game. Guess a sequence of #{@game.sequence.length} colors."
       puts "Guess number #{@game.turns + 1}:"
       input = gets.strip
@@ -89,7 +78,13 @@ class Repl
         end
       end
     end
-    
+  end_of_game_choices
+  end
+  
+end
+
+  def end_of_game_choices
+    input = ''
     if @game.game_over?
       until (input == 'y') || (input == 'n')
         input = gets.strip
@@ -102,7 +97,5 @@ class Repl
       end
     end
   end
-  
-end
 
 test = Repl.new.start

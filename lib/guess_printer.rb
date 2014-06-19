@@ -6,11 +6,12 @@ class GuessPrinter
     @guess = guess
 
     if @guess.results[:full_match]
-      puts "You have a full match! Game over."
+      puts "game over"
     else
-      puts "You don't yet have a full match."
+      system('clear')
+      puts "Last guess: #{@guess.code} "
+      puts "You have #{@guess.results.fetch :correct_color} correct colors."
+      puts "You have #{@guess.results[:correct_position]} correct positions."
     end
-    puts "You have #{@guess.results.fetch :correct_color} correct colors."
-    puts "You have #{@guess.results[:correct_position]} correct positions."
-  end
+    end
 end
