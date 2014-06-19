@@ -55,13 +55,17 @@ class Repl
         end
       end
     end
-    # input = gets.strip
-    # do until (input == 'y') || (input == 'n')
-    #   if input == 'y'
-    #     play
-    #   elsif input == 'n'
-    #   end
-    # end
+    #new game choice (y/n)
+    input = ''
+    until (input == 'y') || (input == 'n')
+      input = gets.strip
+      if input == 'y'
+        start_new_game
+      elsif input == 'n'
+      else
+        puts "invalid, bro. type y or n"
+      end
+    end
   end
   
 end
